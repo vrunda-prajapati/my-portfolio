@@ -68,20 +68,20 @@ const PROJECTS = [
   {
     title: "Skillify",
     emoji: "🚀",
-    desc: "A full-stack skill-sharing and learning platform where users can post skills they offer, browse what others teach, and connect for peer-to-peer learning. Built with a Java backend and React frontend.",
-    tech: ["React", "Java", "Spring Boot", "MySQL", "REST API"],
+    desc: "A full-stack skill-sharing and learning platform where users can post skills they offer, browse what others teach, and connect for peer-to-peer learning.",
+    tech: ["HTML", "CSS", "Javascript", "Node.js", "MySQL"],
     github: "https://github.com/yourusername/skillify",
     live: null,
     highlight: true,
   },
   {
-    title: "Inventory Management System",
+    title: "Portfolio Website",
     emoji: "📦",
-    desc: "A desktop-grade inventory tracking application that handles product CRUD operations, stock alerts, and reporting dashboards. Designed for small businesses to manage inventory efficiently.",
-    tech: ["Java", "JavaFX", "MySQL", "JDBC"],
-    github: "https://github.com/yourusername/inventory-management",
+    desc: "This website serves as a personal portfolio to showcase my projects, skills, and practical experience in software development. It includes detailed information about the applications I have developed, along with the tools and technologies used in each project.",
+    tech: ["React"],
+    github: "https://github.com/vrunda-prajapati/my-portfolio.git",
     live: null,
-    highlight: false,
+    highlight: true,
   },
 ];
 
@@ -220,6 +220,8 @@ function Hero() {
     </section>
   );
 }
+ 
+
 
 function About() {
   const [ref, visible] = useVisible();
@@ -415,7 +417,7 @@ function Contact() {
           {[
             { icon: "✉️", label: "Email", href: "mailto:vrundaprajapati0204@gmail.com" },
             { icon: "💼", label: "LinkedIn", href: "https://www.linkedin.com/in/vrunda-prajapati-0b3b4b31b/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3B5HLFuftgS1OSbUCf%2FgqMAA%3D%3D" },
-            { icon: "🐙", label: "GitHub", href: "https://github.com/yourusername" },
+            { icon: "🐙", label: "GitHub", href: "https://github.com/vrunda-prajapati" },
           ].map(s => (
             <a key={s.label} href={s.href} target="_blank" rel="noreferrer" style={{
               display: "flex", alignItems: "center", gap: 10,
