@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-
+import emailjs from "@emailjs/browser";
 // ── Typing effect hook ──────────────────────────────────────────────────
 function useTyping(words, speed = 90, pause = 1800) {
   const [display, setDisplay] = useState("");
@@ -114,9 +114,10 @@ function NavBar({ active }) {
       padding: "0 5vw",
     }}>
       <div style={{ maxWidth: 1100, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 64 }}>
-        <span style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: 22, color: "#00E5BE", letterSpacing: 1 }}>
-          &lt;Vrunda/&gt;
-        </span>
+       <span style={{ fontFamily: "'DM Mono', monospace", fontSize: 20, color: "#00E5BE", letterSpacing: 0.5 }}>
+  <span style={{ color: "rgba(255,255,255,0.3)" }}>~/</span>Vrunda
+  <span style={{ animation: "blink 1s step-end infinite", marginLeft: 1 }}>_</span>
+</span>
         {/* Desktop */}
         <ul style={{ display: "flex", gap: 32, listStyle: "none", margin: 0, padding: 0 }} className="desktop-nav">
           {NAV.map(n => (
@@ -151,8 +152,13 @@ function NavBar({ active }) {
         </div>
       )}
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?...');
         @media(max-width:640px){.desktop-nav{display:none!important}.hamburger{display:flex!important}}
+        @keyframes spinRing { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @media(max-width: 768px) {
+          .hero-grid { grid-template-columns: 1fr !important; text-align: center; }
+          .hero-grid > div:last-child { order: -1; }
+        }
       `}</style>
     </nav>
   );
@@ -179,8 +185,88 @@ function Hero() {
       <div style={{ position: "absolute", top: "15%", left: "10%", width: 320, height: 320, borderRadius: "50%", background: "radial-gradient(circle, rgba(0,229,190,0.1) 0%, transparent 70%)", zIndex: 0, animation: "float 6s ease-in-out infinite" }} />
       <div style={{ position: "absolute", bottom: "20%", right: "12%", width: 240, height: 240, borderRadius: "50%", background: "radial-gradient(circle, rgba(99,102,241,0.1) 0%, transparent 70%)", zIndex: 0, animation: "float 8s ease-in-out infinite reverse" }} />
 
-      <div style={{ maxWidth: 750, zIndex: 1, textAlign: "center", animation: "fadeUp 0.9s ease both" }}>
-        <p style={{ fontFamily: "'DM Mono', monospace", color: "#00E5BE", fontSize: 13, letterSpacing: 3, textTransform: "uppercase", marginBottom: 24, opacity: 0.9 }}>
+    <div style={{
+          maxWidth: 1100, width: "100%", zIndex: 1,
+          display: "grid", gridTemplateColumns: "1fr auto", gap: "60px",
+          alignItems: "center", animation: "fadeUp 0.9s ease both",
+        }} className="hero-grid">
+
+          {/* Right: Photo */}
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+          <div style={{ position: "relative", width: 280, height: 280, flexShrink: 0 }}>
+
+            {/* Outermost faint ring */}
+            <div style={{
+              position: "absolute", inset: -30, borderRadius: "50%",
+              border: "1px solid rgba(0,229,190,0.12)",
+            }} />
+
+            {/* Second faint ring */}
+            <div style={{
+              position: "absolute", inset: -15, borderRadius: "50%",
+              border: "1px solid rgba(0,229,190,0.18)",
+            }} />
+
+            {/* Spinning arc ring */}
+            <div style={{
+              position: "absolute", inset: -6, borderRadius: "50%",
+              border: "2px solid transparent",
+              borderTop: "2px solid #00E5BE",
+              borderRight: "2px solid #00E5BE",
+              animation: "spinRing 20s linear infinite",
+              filter: "drop-shadow(0 0 6px #00E5BE)",
+            }} />
+
+            {/* Main glowing border */}
+            <div style={{
+              position: "absolute", inset: -3, borderRadius: "50%",
+              background: "conic-gradient(#00E5BE 0deg, #6366f1 120deg, #00E5BE 240deg, #0A0E1B 241deg, #0A0E1B 360deg)",
+              animation: "spinRing 20s linear infinite reverse",
+              padding: 3,
+            }}>
+              <div style={{ width: "100%", height: "100%", borderRadius: "50%", background: "#0A0E1B" }} />
+            </div>
+
+            {/* Glow overlay */}
+            <div style={{
+              position: "absolute", inset: 0, borderRadius: "50%",
+              boxShadow: "0 0 30px rgba(0,229,190,0.3), 0 0 60px rgba(0,229,190,0.1), inset 0 0 20px rgba(0,229,190,0.05)",
+              zIndex: 2, pointerEvents: "none",
+            }} />
+
+            {/* Your Photo */}
+            <img
+              src="https://media.licdn.com/dms/image/v2/D4D03AQF71YhyQ9j7iw/profile-displayphoto-crop_800_800/B4DZ13j0MYHIAI-/0/1775827379135?e=1779321600&v=beta&t=zpqqWS4ey2Iyp_8VkNL6WmOjjSBQUjVxnPdBsn6QJ-4"
+              alt="Your Name"
+              style={{
+                position: "absolute", inset: 4,
+                width: "calc(100% - 8px)", height: "calc(100% - 8px)",
+                borderRadius: "50%", objectFit: "cover", objectPosition: "top",
+                zIndex: 1,
+              }}
+              onError={e => {
+                e.target.style.display = "none";
+                e.target.nextSibling.style.display = "flex";
+              }}
+            />
+
+            {/* Fallback initials (shown if image fails to load) */}
+            <div style={{
+              position: "absolute", inset: 4,
+              width: "calc(100% - 8px)", height: "calc(100% - 8px)",
+              borderRadius: "50%",
+              background: "linear-gradient(135deg, rgba(0,229,190,0.15), rgba(99,102,241,0.15))",
+              zIndex: 1, display: "none", alignItems: "center", justifyContent: "center",
+              fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: 64, color: "#00E5BE",
+            }}>YN</div>
+
+            
+
+          </div>
+        </div>
+
+        <div>       
+         <p style={{ fontFamily: "'DM Mono', monospace", color: "#00E5BE", fontSize: 13, letterSpacing: 3, textTransform: "uppercase", marginBottom: 24, opacity: 0.9 }}>
           👋 Hello, I'm
         </p>
         <h1 style={{ fontFamily: "'Syne', sans-serif", fontSize: "clamp(2.8rem,7vw,5.5rem)", fontWeight: 800, color: "#fff", lineHeight: 1.1, marginBottom: 20, letterSpacing: -1 }}>
@@ -205,16 +291,17 @@ function Hero() {
           >
             View Projects →
           </button>
-          <a href="#" download style={{
+          <a href="/My-Resume.pdf" download="My-Resume.pdf" style={{
             padding: "14px 32px", background: "transparent", color: "#00E5BE", border: "2px solid rgba(0,229,190,0.4)", borderRadius: 8,
             fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: 15, cursor: "pointer",
             textDecoration: "none", display: "inline-block", transition: "all 0.25s", letterSpacing: 0.4,
           }}
             onMouseEnter={e => { e.currentTarget.style.borderColor = "#00E5BE"; e.currentTarget.style.background = "rgba(0,229,190,0.07)"; }}
             onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(0,229,190,0.4)"; e.currentTarget.style.background = "transparent"; }}
-          >
-            ↓ Resume
+          >Download Resume
+            
           </a>
+        </div>
         </div>
       </div>
     </section>
@@ -382,10 +469,30 @@ function Projects() {
 function Contact() {
   const [ref, visible] = useVisible();
   const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState("idle"); // idle | sending | success | error
 
   const handleSubmit = () => {
-    if (form.name && form.email && form.message) setSent(true);
+    if (!form.name || !form.email || !form.message) return;
+
+    setStatus("sending");
+
+    emailjs.send(
+      "service_abta52t",      // ← EmailJS Service ID
+      "template_q1psh0p",     // ← EmailJS Template ID
+      {
+        from_name: form.name,
+        from_email: form.email,
+        message: form.message,
+      },
+      "2zIzI9YhXvsL2lo8W"       // ← EmailJS Public Key
+    )
+    .then(() => {
+      setStatus("success");
+      setForm({ name: "", email: "", message: "" });
+    })
+    .catch(() => {
+      setStatus("error");
+    });
   };
 
   return (
@@ -434,12 +541,17 @@ function Contact() {
           ))}
         </div>
 
-        {/* Contact form */}
-        {sent ? (
+        {/* Form */}
+        {status === "success" ? (
           <div style={{ textAlign: "center", padding: 40, background: "rgba(0,229,190,0.07)", border: "1px solid rgba(0,229,190,0.25)", borderRadius: 16 }}>
             <div style={{ fontSize: 40, marginBottom: 12 }}>🎉</div>
             <p style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 20, color: "#00E5BE" }}>Message sent!</p>
             <p style={{ fontFamily: "'DM Sans', sans-serif", color: "rgba(255,255,255,0.5)", fontSize: 14 }}>I'll get back to you soon.</p>
+            <button onClick={() => setStatus("idle")} style={{
+              marginTop: 20, background: "none", border: "1px solid rgba(0,229,190,0.3)",
+              color: "#00E5BE", borderRadius: 8, padding: "8px 20px", cursor: "pointer",
+              fontFamily: "'DM Sans', sans-serif", fontSize: 13,
+            }}>Send another</button>
           </div>
         ) : (
           <div style={{
@@ -453,8 +565,11 @@ function Contact() {
               { key: "email", label: "Email Address", type: "email", placeholder: "john@example.com" },
             ].map(f => (
               <div key={f.key} style={{ marginBottom: 20 }}>
-                <label style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "rgba(255,255,255,0.5)", display: "block", marginBottom: 8, fontWeight: 500, letterSpacing: 0.3 }}>{f.label}</label>
-                <input type={f.type} placeholder={f.placeholder} value={form[f.key]}
+                <label style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "rgba(255,255,255,0.5)", display: "block", marginBottom: 8, fontWeight: 500 }}>{f.label}</label>
+                <input
+                  type={f.type}
+                  placeholder={f.placeholder}
+                  value={form[f.key]}
                   onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))}
                   style={{ width: "100%", padding: "12px 16px", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8, color: "#fff", fontFamily: "'DM Sans', sans-serif", fontSize: 14, outline: "none", boxSizing: "border-box", transition: "border 0.2s" }}
                   onFocus={e => e.target.style.borderColor = "rgba(0,229,190,0.5)"}
@@ -464,21 +579,37 @@ function Contact() {
             ))}
             <div style={{ marginBottom: 24 }}>
               <label style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, color: "rgba(255,255,255,0.5)", display: "block", marginBottom: 8, fontWeight: 500 }}>Message</label>
-              <textarea rows={4} placeholder="Hey! I'd love to collaborate on..." value={form.message}
+              <textarea
+                rows={4}
+                placeholder="Hey! I'd love to collaborate on..."
+                value={form.message}
                 onChange={e => setForm(p => ({ ...p, message: e.target.value }))}
                 style={{ width: "100%", padding: "12px 16px", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 8, color: "#fff", fontFamily: "'DM Sans', sans-serif", fontSize: 14, outline: "none", resize: "vertical", boxSizing: "border-box", transition: "border 0.2s" }}
                 onFocus={e => e.target.style.borderColor = "rgba(0,229,190,0.5)"}
                 onBlur={e => e.target.style.borderColor = "rgba(255,255,255,0.1)"}
               />
             </div>
-            <button onClick={handleSubmit} style={{
-              width: "100%", padding: "14px", background: "#00E5BE", color: "#0A0E1B",
-              border: "none", borderRadius: 8, fontFamily: "'Syne', sans-serif", fontWeight: 700,
-              fontSize: 15, cursor: "pointer", transition: "all 0.25s", letterSpacing: 0.3,
-            }}
-              onMouseEnter={e => { e.target.style.background = "#00c9a8"; e.target.style.boxShadow = "0 0 24px rgba(0,229,190,0.3)"; }}
-              onMouseLeave={e => { e.target.style.background = "#00E5BE"; e.target.style.boxShadow = "none"; }}
-            >Send Message →</button>
+
+            {status === "error" && (
+              <p style={{ fontFamily: "'DM Sans', sans-serif", color: "#ff6b6b", fontSize: 13, marginBottom: 16, textAlign: "center" }}>
+                ⚠️ Something went wrong. Please try again or email me directly.
+              </p>
+            )}
+
+            <button
+              onClick={handleSubmit}
+              disabled={status === "sending"}
+              style={{
+                width: "100%", padding: "14px", background: status === "sending" ? "rgba(0,229,190,0.5)" : "#00E5BE",
+                color: "#0A0E1B", border: "none", borderRadius: 8,
+                fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 15,
+                cursor: status === "sending" ? "not-allowed" : "pointer", transition: "all 0.25s",
+              }}
+              onMouseEnter={e => { if (status !== "sending") { e.target.style.background = "#00c9a8"; e.target.style.boxShadow = "0 0 24px rgba(0,229,190,0.3)"; }}}
+              onMouseLeave={e => { e.target.style.background = status === "sending" ? "rgba(0,229,190,0.5)" : "#00E5BE"; e.target.style.boxShadow = "none"; }}
+            >
+              {status === "sending" ? "Sending..." : "Send Message →"}
+            </button>
           </div>
         )}
       </div>
