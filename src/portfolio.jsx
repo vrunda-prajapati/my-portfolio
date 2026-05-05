@@ -78,7 +78,7 @@ const PROJECTS = [
     title: "Portfolio Website",
     emoji: "💼",
     desc: "This website serves as a personal portfolio to showcase my projects, skills, and practical experience in software development. It includes detailed information about the applications I have developed, along with the tools and technologies used in each project.",
-    tech: ["React","EmailJS","Netlify"],
+    tech: ["React","EmailJS","Vercel"],
     github: "https://github.com/vrunda-prajapati/my-portfolio.git",
     live: null,
     highlight: true,
