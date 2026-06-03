@@ -221,7 +221,7 @@ function Hero() {
               <div style={{ width:"100%", height:"100%", borderRadius:"50%", background:"#0A0E1B" }} />
             </div>
             <div style={{ position:"absolute", inset:0, borderRadius:"50%", boxShadow:"0 0 30px rgba(0,229,190,0.3),0 0 60px rgba(0,229,190,0.1)", zIndex:2, pointerEvents:"none" }} />
-            <img src="https://media.licdn.com/dms/image/v2/D4D03AQF71YhyQ9j7iw/profile-displayphoto-crop_800_800/B4DZ13j0MYHIAI-/0/1775827379135?e=1779321600&v=beta&t=zpqqWS4ey2Iyp_8VkNL6WmOjjSBQUjVxnPdBsn6QJ-4" alt="Vrunda Prajapati" style={{ position:"absolute", inset:4, width:"calc(100% - 8px)", height:"calc(100% - 8px)", borderRadius:"50%", objectFit:"cover", objectPosition:"top", zIndex:1 }}
+            <img src="myPhoto.jpeg" alt="Vrunda Prajapati" style={{ position:"absolute", inset:4, width:"calc(100% - 8px)", height:"calc(100% - 8px)", borderRadius:"50%", objectFit:"cover", objectPosition:"top", zIndex:1 }}
               onError={e => { e.target.style.display="none"; e.target.nextSibling.style.display="flex"; }} />
             <div style={{ position:"absolute", inset:4, width:"calc(100% - 8px)", height:"calc(100% - 8px)", borderRadius:"50%", background:"linear-gradient(135deg,rgba(0,229,190,0.15),rgba(99,102,241,0.15))", zIndex:1, display:"none", alignItems:"center", justifyContent:"center", fontFamily:"'Syne',sans-serif", fontWeight:800, fontSize:64, color:"#00E5BE" }}>VP</div>
           </div>
