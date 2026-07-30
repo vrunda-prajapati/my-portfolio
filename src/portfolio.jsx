@@ -44,10 +44,12 @@ const SKILLS = {
 
 const PROJECTS = [
   { title: "Skillify", emoji: "🚀", desc: "A full-stack skill-sharing and learning platform where users can post skills they offer, browse what others teach, and connect for peer-to-peer learning. Built with a Java backend and React frontend.", tech: ["HTML / CSS", "JavaScript", "Node.js", "MySQL", "Netlify"], github: "https://github.com/vrunda-prajapati/Skillify-SkillExchangePlatform.git", live: null, highlight: true },
+  { title: "Brain Boost", emoji: "🧠", desc: "A cognitive mind game app featuring 6 brain-training games — Sudoku, Crossword, Pattern Memory, Memory Match, Number Puzzle, and Word Scramble. Built during my internship at Ultron Technologies to sharpen focus and memory.", tech: ["React", "Node.js", "MySQL"], github: "https://github.com/vrunda-prajapati/BrainBoost", live: null, highlight: true },
+  { title: "SpendWise", emoji: "💰", desc: "An expense management application that helps users track income, expenses, and savings goals with secure authentication and insightful dashboards. Clean UI with full CRUD and data visualization.", tech: ["HTML", "CSS", "JavaScript", "Node.js", "MySQL"], github: "https://github.com/vrunda-prajapati/SpendWise", live: null, highlight: false },
   { title: "Portfolio Website", emoji: "💻", desc: "A modern, responsive portfolio website showcasing my projects and skills. Built with React and styled-components.", tech: ["React.Js", "EmailJS", "Vercel"], github: "https://github.com/vrunda-prajapati/my-portfolio.git", live: null, highlight: false },
 ];
 
-const NAV = ["Home", "About", "Skills", "Projects", "Contact"];
+const NAV = ["Home", "About", "Experience", "Skills", "Projects", "Contact"];
 
 const GLOBAL_CSS = `
   @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
@@ -309,6 +311,65 @@ function About() {
   );
 }
 
+function Experience() {
+  const [ref, visible] = useVisible();
+  return (
+    <section id="experience" ref={ref} style={{ padding:"80px 5vw", background:"rgba(255,255,255,0.015)", borderTop:"1px solid rgba(255,255,255,0.05)", borderBottom:"1px solid rgba(255,255,255,0.05)" }}>
+      <div style={{ maxWidth:900, margin:"0 auto" }}>
+        <SectionLabel label="Experience" />
+        <h2 style={{ fontFamily:"'Syne',sans-serif", fontSize:"clamp(1.5rem,3.5vw,2.6rem)", fontWeight:800, color:"#fff", marginBottom:48, textAlign:"center" }}>
+          Work Experience
+        </h2>
+        <div style={{ opacity:visible?1:0, transform:visible?"translateY(0)":"translateY(40px)", transition:"all 0.6s ease", display:"flex", gap:32, alignItems:"flex-start" }} className="exp-card">
+          <div style={{ display:"flex", flexDirection:"column", alignItems:"center", flexShrink:0 }}>
+            <div style={{ width:48, height:48, borderRadius:"50%", background:"rgba(0,229,190,0.1)", border:"2px solid rgba(0,229,190,0.4)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:20 }}>💼</div>
+            <div style={{ width:2, height:"100%", minHeight:120, background:"linear-gradient(180deg,rgba(0,229,190,0.4),transparent)", marginTop:12 }} />
+          </div>
+          <div style={{ flex:1, background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.07)", borderRadius:20, padding:"28px 32px", position:"relative", overflow:"hidden" }}>
+            <div style={{ position:"absolute", top:0, left:0, right:0, height:3, background:"linear-gradient(90deg,#00E5BE,#6366f1)", borderRadius:"20px 20px 0 0" }} />
+            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", flexWrap:"wrap", gap:12, marginBottom:16 }}>
+              <div>
+                <h3 style={{ fontFamily:"'Syne',sans-serif", fontWeight:800, fontSize:"clamp(16px,2vw,20px)", color:"#fff", marginBottom:6 }}>Web Development Intern</h3>
+                <div style={{ display:"flex", alignItems:"center", gap:10, flexWrap:"wrap" }}>
+                  <span style={{ fontFamily:"'DM Sans',sans-serif", fontWeight:600, fontSize:15, color:"#00E5BE" }}>Ultron Technologies</span>
+                  <span style={{ width:4, height:4, borderRadius:"50%", background:"rgba(255,255,255,0.3)", display:"inline-block" }} />
+                  <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:13, color:"rgba(255,255,255,0.45)" }}>Anand, Gujarat</span>
+                </div>
+              </div>
+              <span style={{ fontFamily:"'DM Mono',monospace", fontSize:12, color:"#00E5BE", background:"rgba(0,229,190,0.1)", border:"1px solid rgba(0,229,190,0.25)", padding:"5px 14px", borderRadius:20, whiteSpace:"nowrap" }}>June 2026 · 15 days</span>
+            </div>
+            <div style={{ height:1, background:"rgba(255,255,255,0.06)", marginBottom:20 }} />
+            <ul style={{ listStyle:"none", display:"flex", flexDirection:"column", gap:12 }}>
+              {[
+                "Completed a focused web development internship, building real-world mini projects under professional guidance.",
+                "Developed Brain Boost — a full-stack cognitive game app featuring 6 games (Sudoku, Crossword, Pattern Memory, Memory Match, Number Puzzle, Word Scramble) using React, Node.js, and MySQL.",
+                "Gained hands-on experience in full-stack development, REST API design, database integration, and collaborative project workflows.",
+              ].map((point, i) => (
+                <li key={i} style={{ display:"flex", gap:12, alignItems:"flex-start" }}>
+                  <span style={{ color:"#00E5BE", fontSize:16, flexShrink:0, marginTop:1 }}>▸</span>
+                  <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"clamp(13px,1.5vw,15px)", color:"rgba(255,255,255,0.65)", lineHeight:1.8 }}>{point}</span>
+                </li>
+              ))}
+            </ul>
+            <div style={{ display:"flex", flexWrap:"wrap", gap:8, marginTop:20 }}>
+              {["React", "Node.js", "MySQL", "REST API", "JavaScript"].map(t => (
+                <span key={t} style={{ fontFamily:"'DM Mono',monospace", fontSize:11, color:"#00E5BE", background:"rgba(0,229,190,0.08)", border:"1px solid rgba(0,229,190,0.2)", padding:"3px 10px", borderRadius:4, letterSpacing:0.5 }}>{t}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+      <style>{`
+        @media(max-width:600px){
+          .exp-card { flex-direction:column!important; gap:16px!important; }
+          .exp-card > div:first-child { flex-direction:row!important; align-items:center!important; }
+          .exp-card > div:first-child > div:last-child { display:none!important; }
+        }
+      `}</style>
+    </section>
+  );
+}
+
 /* ── Skills ─────────────────────────────────────────────────────────── */
 function Skills() {
   const [ref, visible] = useVisible();
@@ -470,6 +531,7 @@ export default function App() {
       <NavBar active={activeSection} />
       <Hero />
       <About />
+      <Experience />
       <Skills />
       <Projects />
       <Contact />
