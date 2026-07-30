@@ -206,7 +206,7 @@ function Hero() {
               onMouseEnter={e => { e.target.style.background="#00c9a8"; e.target.style.transform="translateY(-2px)"; }}
               onMouseLeave={e => { e.target.style.background="#00E5BE"; e.target.style.transform="translateY(0)"; }}
             >View Projects →</button>
-            <a href="/My-Resume.pdf" download="My-Resume.pdf" style={{ padding:"13px 28px", background:"transparent", color:"#00E5BE", border:"2px solid rgba(0,229,190,0.4)", borderRadius:8, fontFamily:"'DM Sans',sans-serif", fontWeight:600, fontSize:15, textDecoration:"none", display:"inline-block", transition:"all 0.25s", letterSpacing:0.4 }}
+            <a href="/My_Resume.pdf" download="My_Resume.pdf" style={{ padding:"13px 28px", background:"transparent", color:"#00E5BE", border:"2px solid rgba(0,229,190,0.4)", borderRadius:8, fontFamily:"'DM Sans',sans-serif", fontWeight:600, fontSize:15, textDecoration:"none", display:"inline-block", transition:"all 0.25s", letterSpacing:0.4 }}
               onMouseEnter={e => { e.currentTarget.style.borderColor="#00E5BE"; e.currentTarget.style.background="rgba(0,229,190,0.07)"; }}
               onMouseLeave={e => { e.currentTarget.style.borderColor="rgba(0,229,190,0.4)"; e.currentTarget.style.background="transparent"; }}
             >↓ Resume</a>
@@ -311,6 +311,7 @@ function About() {
   );
 }
 
+/* ── Experience ──────────────────────────────────────────────────────────── */
 function Experience() {
   const [ref, visible] = useVisible();
   return (
@@ -520,7 +521,7 @@ export default function App() {
     const sections = NAV.map(n => document.getElementById(n.toLowerCase()));
     const obs = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) setActiveSection(e.target.id); });
-    }, { threshold:0.3 });
+    }, { threshold:0.15 });
     sections.forEach(s => s && obs.observe(s));
     return () => obs.disconnect();
   }, []);
